@@ -21,10 +21,13 @@ public class Account {
     
     @Override
     public String toString() {
-                return "Account{" +
+        int n = Integer.parseInt(id);
+        String accountNumber = String.format("%03d%06d", 1, n);
+
+        return "Account{" +
                 "accountType=" + accountType +
-                ", id='" + id + '\'' +
-                ", clientID='" + clientID + '\'' +
+                ", id='" + accountNumber +
+                ", clientID='" + clientID +
                 ", balance=" + balance +
                 ", withdrawAllowed=" + withdrawAllowed +
                 '}';
@@ -45,7 +48,9 @@ public class Account {
         this.balance = balance;
         this.withdrawAllowed = withdrawAllowed;
     }
-    
+
+
+
     public boolean isWithdrawAllowed() {
         return withdrawAllowed;
     }
