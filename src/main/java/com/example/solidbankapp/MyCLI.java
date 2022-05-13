@@ -25,15 +25,13 @@ public class MyCLI implements CLIUI {
     }
 
     public AccountType requestAccountType() throws IllegalArgumentException {
-        System.out.println("Please enter account type");
-        System.out.println("[CHECKING, SAVING, FIXED]");
         String accountType = scanner.nextLine();
         switch (accountType) {
             case "CHECKING" -> { return AccountType.CHECKING; }
-            case "FIXED" -> { return  AccountType.CHECKING; }
-            case "SAVING" -> { return AccountType.CHECKING; }
+            case "FIXED" -> { return  AccountType.FIXED; }
+            case "SAVING" -> { return AccountType.SAVING; }
             default -> {
-                System.out.println("Invalid input");
+                //System.out.println("Invalid input");
                 return null;
             }
         }

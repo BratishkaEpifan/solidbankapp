@@ -23,11 +23,13 @@ public class AccountCreationServiceImpl implements AccountCreationService {
     @Override
     public void create(AccountType accountType, long bankID, String clientID, long accountID) {
         try {
-            Account newAccount = switch (accountType) {
+            Account newAccount = switch (accountType)  {
                 case CHECKING -> new CheckingAccount(accountType, Long.toString(accountID), clientID, 0, true);
                 case FIXED -> new FixedAccount(accountType, Long.toString(accountID), clientID, 0, false);
                 case SAVING -> new SavingAccount(accountType, Long.toString(accountID), clientID, 0, true);
+                default -> new Account(accountType, Long.toString(accountID), clientID, 0, true);
             };
+            accountDAO.createNewAccount(newAccount);
             System.out.println("Account successfully created");
         } catch (Exception e) {
             System.out.println("Invalid input");

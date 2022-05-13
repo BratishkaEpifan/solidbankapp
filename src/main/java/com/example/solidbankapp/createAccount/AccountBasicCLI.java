@@ -25,8 +25,14 @@ public class AccountBasicCLI {
     }
 
     public void createAccountRequest(String clientID) {
-        if (createAccountOperationUI.requestAccountType() != null) {
-            bankCore.createNewAccount(createAccountOperationUI.requestAccountType(), clientID);
+        System.out.println("Please enter account type");
+        System.out.println("[CHECKING, SAVING, FIXED]");
+
+        AccountType type = createAccountOperationUI.requestAccountType();
+        if (type!= null) {
+            bankCore.createNewAccount(type, clientID);
+        } else {
+            System.out.println("Invalid account type");
         }
     }
     
