@@ -4,6 +4,8 @@
  */
 package com.example.solidbankapp.transactions;
 
+import com.example.solidbankapp.BankAccount.Account;
+import com.example.solidbankapp.BankAccount.AccountWithdraw;
 import com.example.solidbankapp.accountService.AccountWithdrawService;
 
 /**
@@ -11,10 +13,15 @@ import com.example.solidbankapp.accountService.AccountWithdrawService;
  * @author john_
  */
 public class TransactionWithdraw {
-    AccountWithdrawService accountWithdrawService;
-    TransactionDAO transactionDAO;
+    private AccountWithdrawService accountWithdrawService;
+    private TransactionDAO transactionDAO;
 
     public TransactionWithdraw(AccountWithdrawService accountWithdrawService, TransactionDAO transactionDAO) {
-        //transactionDAO.addTransaction();
+        this.accountWithdrawService = accountWithdrawService;
+        this.transactionDAO = transactionDAO;
+    }
+
+    public void execute (AccountWithdraw accountWithdraw, double amount) {
+
     }
 }

@@ -16,6 +16,6 @@ public class MemoryTransactionDAO implements TransactionDAO {
         return transactions;
     }
     public void addTransaction(Transaction transaction) {
-
+        transactions.add(transaction);
     }
 }
