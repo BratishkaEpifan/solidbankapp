@@ -31,6 +31,7 @@ public class AccountDepositServiceImpl implements AccountDepositService {
         for (Account i : list) {
             if (i.equals(account) == true) {
                 account.setBalance(account.getBalance() + amount);
+                System.out.println("The transaction is successful!");
                 return;
             }
         }

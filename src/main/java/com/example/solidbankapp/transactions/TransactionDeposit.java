@@ -22,7 +22,8 @@ public class TransactionDeposit {
     }
 
     public void execute (Account account, double amount) {
-        account.setBalance(account.getBalance()+amount);
+        Transaction transaction = new Transaction(account, amount);
+        transactionDAO.addTransaction(transaction);
     }
 
 }

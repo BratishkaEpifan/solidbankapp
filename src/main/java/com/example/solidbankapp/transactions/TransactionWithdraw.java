@@ -22,6 +22,7 @@ public class TransactionWithdraw {
     }
 
     public void execute (AccountWithdraw accountWithdraw, double amount) {
-
+        Transaction transaction = new Transaction(accountWithdraw, amount);
+        transactionDAO.addTransaction(transaction);
     }
 }
