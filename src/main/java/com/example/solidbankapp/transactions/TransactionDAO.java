@@ -3,11 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package com.example.solidbankapp.transactions;
-
+import java.util.List;
 /**
  *
  * @author john_
  */
 public interface TransactionDAO {
-    
+    public List<Transaction> getTransactions();
+    public void addTransaction(Transaction transaction);
 }

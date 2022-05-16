@@ -4,10 +4,14 @@
  */
 package com.example.solidbankapp.transactions;
 
+import com.example.solidbankapp.accountService.AccountDepositService;
+
 /**
  *
  * @author john_
  */
 public class TransactionDeposit {
-    
+    private AccountDepositService accountDepositService;
+    private TransactionDAO transactionDAO;
+
 }
