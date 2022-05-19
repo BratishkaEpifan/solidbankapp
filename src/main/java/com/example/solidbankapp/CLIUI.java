@@ -5,10 +5,12 @@
 package com.example.solidbankapp;
 import com.example.solidbankapp.createAccount.CreateAccountOperationUI;
 import com.example.solidbankapp.BankAccount.AccountType;
+import com.example.solidbankapp.transactions.WithdrawDepositOperationCLIUI;
+
 /**
  *
  * @author john_
  */
-public interface CLIUI extends CreateAccountOperationUI {
+public interface CLIUI extends CreateAccountOperationUI, WithdrawDepositOperationCLIUI {
     public AccountType requestAccountType();    
 }

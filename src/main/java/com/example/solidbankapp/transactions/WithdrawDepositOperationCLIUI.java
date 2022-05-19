@@ -10,5 +10,5 @@ package com.example.solidbankapp.transactions;
  */
 public interface WithdrawDepositOperationCLIUI {
     public double requestClientAmount();
-    public String requestClientAmountNumber();
+    public String requestClientAccountNumber();
 }

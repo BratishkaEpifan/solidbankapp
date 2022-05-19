@@ -36,4 +36,14 @@ public class MyCLI implements CLIUI {
             }
         }
     }
+
+    @Override
+    public double requestClientAmount() {
+        return 0;
+    }
+
+    @Override
+    public String requestClientAccountNumber() {
+        return null;
+    }
 }

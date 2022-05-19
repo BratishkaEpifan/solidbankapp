@@ -10,6 +10,8 @@ import com.example.solidbankapp.BankAccount.AccountType;
 import com.example.solidbankapp.accountService.AccountListingServiceImpl;
 import com.example.solidbankapp.createAccount.AccountBasicCLI;
 import com.example.solidbankapp.createAccount.CreateAccountOperationUI;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -17,12 +19,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author john_
  */
+@SpringBootApplication
 public class SOLIDBankApp {
+
+    private ApplicationContext context;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        SpringApplication.run(SOLIDBankApp.class);
+    }
+    public void run (String... arg0) throws Exception {
         
         // TODO code application logic here
         String message = "1 - show accounts\n" +
@@ -59,8 +67,6 @@ public class SOLIDBankApp {
             }
         }
     }
-
-
 
     
 }
