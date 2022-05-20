@@ -22,7 +22,13 @@ public class TransactionWithdraw {
     }
 
     public void execute (AccountWithdraw accountWithdraw, double amount) {
-        Transaction transaction = new Transaction(accountWithdraw, amount);
-        transactionDAO.addTransaction(transaction);
+        if (accountWithdraw.getBalance() >= amount) {
+            Transaction transaction = new Transaction(accountWithdraw, amount);
+            accountWithdrawService.withdraw(amount, accountWithdraw);
+            transactionDAO.addTransaction(transaction);
+            System.out.println("The transaction is successful!");
+        }  else {
+            System.out.println("There is not enough money on the account!");
+        }
     }
 }

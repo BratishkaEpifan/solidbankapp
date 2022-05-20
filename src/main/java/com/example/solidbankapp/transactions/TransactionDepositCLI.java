@@ -4,6 +4,9 @@
  */
 package com.example.solidbankapp.transactions;
 
+import com.example.solidbankapp.BankAccount.Account;
+import com.example.solidbankapp.BankAccount.AccountType;
+import com.example.solidbankapp.BankAccount.AccountWithdraw;
 import com.example.solidbankapp.accountService.AccountDepositService;
 import com.example.solidbankapp.accountService.AccountListingService;
 
@@ -22,7 +25,27 @@ public class TransactionDepositCLI {
         this.accountListing = accountListing;
     }
     public void depositMoney(String clientID) {
-
+        System.out.println("Please enter your account ID");
+        String temp = withdrawDepositOperationCLIUI.requestClientAccountNumber();
+        if (temp != null) {
+            long l=Long.parseLong(temp);
+            l = l - 1000000;
+            String accountID = String.valueOf(l);
+            Account account = accountListing.getClientAccount(clientID, accountID);
+            if (account != null) {
+                System.out.println("Please enter the amount");
+                double amount = withdrawDepositOperationCLIUI.requestClientAmount();
+                if (amount <=0) {
+                    System.out.println("Invalid amount");
+                } else {
+                    transactionDeposit.execute(account, amount);
+                }
+            } else {
+                System.out.println("Sorry, you don't have an account with such ID");
+            }
+        } else {
+            System.out.println("No account found");
+        }
     }
 
 }

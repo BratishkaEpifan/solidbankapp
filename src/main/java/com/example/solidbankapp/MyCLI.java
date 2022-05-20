@@ -38,12 +38,26 @@ public class MyCLI implements CLIUI {
     }
 
     @Override
-    public double requestClientAmount() {
-        return 0;
+    public double requestClientAmount() throws IllegalArgumentException {
+        String amount = scanner.nextLine();
+        if (amount.isEmpty() == false) {
+            return Double.parseDouble(amount);
+        } else {
+            return 0;
+        }
     }
 
     @Override
-    public String requestClientAccountNumber() {
-        return null;
+    public String requestClientAccountNumber() throws IllegalArgumentException {
+        String accountNumber = scanner.nextLine();
+        if (accountNumber.isEmpty() == true) {
+            return null;
+        }
+        for (int i=0; i<accountNumber.length(); i++) {
+            if (accountNumber.charAt(i) < 48 || accountNumber.charAt(i) > 57 ) {
+                return null;
+            }
+        }
+        return accountNumber;
     }
 }

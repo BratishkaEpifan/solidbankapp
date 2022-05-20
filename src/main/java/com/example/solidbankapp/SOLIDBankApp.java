@@ -10,9 +10,15 @@ import com.example.solidbankapp.BankAccount.AccountType;
 import com.example.solidbankapp.accountService.AccountListingServiceImpl;
 import com.example.solidbankapp.createAccount.AccountBasicCLI;
 import com.example.solidbankapp.createAccount.CreateAccountOperationUI;
+import com.example.solidbankapp.springAnnotations.AppConfig;
+import com.example.solidbankapp.transactions.TransactionDepositCLI;
+import com.example.solidbankapp.transactions.TransactionWithdrawCLI;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -20,8 +26,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author john_
  */
 @SpringBootApplication
-public class SOLIDBankApp {
+public class SOLIDBankApp implements CommandLineRunner {
 
+    @Autowired
     private ApplicationContext context;
 
     /**
@@ -43,9 +50,14 @@ public class SOLIDBankApp {
 
         System.out.print("Welcome to CLI Bank service\nEnter operation number:\n");
         System.out.print(message);
-        ApplicationContext context = new ClassPathXmlApplicationContext("props.xml");
+
+        //ApplicationContext context = new ClassPathXmlApplicationContext("props.xml");
+        context = new AnnotationConfigApplicationContext(AppConfig.class);
+
         AccountBasicCLI accountBasicCLI =  context.getBean(AccountBasicCLI.class);
-        MyCLI myCLI = (MyCLI) context.getBean("myCLI");
+        TransactionDepositCLI transactionDepositCLI = context.getBean(TransactionDepositCLI.class);
+        TransactionWithdrawCLI transactionWithdrawCLI = context.getBean(TransactionWithdrawCLI.class);
+        MyCLI myCLI = (MyCLI) context.getBean(MyCLI.class);
 
         String clientID = "1";
 
@@ -55,8 +67,8 @@ public class SOLIDBankApp {
             switch (input) {
                 case "1" -> accountBasicCLI.getAccounts(clientID);
                 case "2" -> accountBasicCLI.createAccountRequest(clientID);
-                case "3" -> System.out.println("This command is not available yet");
-                case "4" -> System.out.println("This command is not available yet");
+                case "3" -> transactionDepositCLI.depositMoney(clientID);
+                case "4" -> transactionWithdrawCLI.withdrawMoney(clientID);
                 case "5" -> System.out.println("This command is not available yet");
                 case "6" -> System.out.println(message);
                 case "7" -> {
@@ -66,6 +78,7 @@ public class SOLIDBankApp {
                 default -> System.out.println("Invalid command");
             }
         }
+        myCLI.getScanner().close();
     }
 
     

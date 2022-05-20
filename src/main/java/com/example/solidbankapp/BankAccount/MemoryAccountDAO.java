@@ -38,8 +38,8 @@ public class MemoryAccountDAO implements AccountDAO {
 
 
     @Override
-    public void updateAccount(Account account) {
-
+    public void updateAccount(Account account, double amount) {
+        account.setBalance(amount);
     }
 
     @Override
@@ -55,7 +55,19 @@ public class MemoryAccountDAO implements AccountDAO {
 
     @Override
     public AccountWithdraw getClientWithdrawAccount(String clientID, String accountID) {
-        return null;
+        AccountWithdraw result = null;
+        for (Account i: accountList) {
+            if (i.getClientID().equals(clientID) && i.getID().equals(accountID)) {
+                if (i.isWithdrawAllowed() == true) {
+                    result = (AccountWithdraw)i;
+                    break;
+                } else {
+                    System.out.println("Your account is fixed!");
+                    break;
+                }
+            }
+        }
+        return result;
     }
 
     @Override

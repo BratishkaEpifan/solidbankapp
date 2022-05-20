@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.example.solidbankapp.transactions;
+import java.util.ArrayList;
 import java.util.List;
 /**
  *
@@ -11,6 +12,10 @@ import java.util.List;
 public class MemoryTransactionDAO implements TransactionDAO {
 
     private List<Transaction> transactions;
+
+    public MemoryTransactionDAO () {
+        transactions = new ArrayList<Transaction>();
+    }
 
     public List<Transaction> getTransactions() {
         return transactions;

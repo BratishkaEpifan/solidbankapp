@@ -18,15 +18,11 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
     @Bean
     public AccountCreationServiceImpl accountCreationServiceImpl() {
-        return new AccountCreationServiceImpl(memoryAccountDAO());
-    }
-    @Bean
-    public MemoryAccountDAO memoryAccountDAO() {
-        return new MemoryAccountDAO();
+        return new AccountCreationServiceImpl(accountDAO());
     }
     @Bean
     public AccountListingServiceImpl accountListing() {
-        return new AccountListingServiceImpl(memoryAccountDAO());
+        return new AccountListingServiceImpl(accountDAO());
     }
     @Bean
     public BankCore bankCore() {
@@ -42,11 +38,11 @@ public class AppConfig {
     }
     @Bean
     public TransactionWithdrawCLI transactionWithdrawCLI() {
-        return new TransactionWithdrawCLI(transactionWithdraw(), withdrawDepositOperationCLIUI(), accountListing());
+        return new TransactionWithdrawCLI(transactionWithdraw(), myCLI(), accountListing());
     }
     @Bean
     public TransactionDepositCLI transactionDepositCLI() {
-        return new TransactionDepositCLI(transactionDeposit(), withdrawDepositOperationCLIUI(), accountListing());
+        return new TransactionDepositCLI(transactionDeposit(), myCLI(), accountListing());
     }
     @Bean
     public TransactionWithdraw transactionWithdraw() {
@@ -72,14 +68,14 @@ public class AppConfig {
     public MemoryAccountDAO accountDAO(){
         return new MemoryAccountDAO();
     }
-    @Bean
+    /*@Bean
     public WithdrawDepositOperationCLIUI withdrawDepositOperationCLIUI() {
         return new MyCLI();
     }
     @Bean
     public CreateAccountOperationUI createAccountOperationUI() {
         return new MyCLI();
-    }
+    }*/
 
 
 }

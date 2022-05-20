@@ -23,19 +23,6 @@ public class AccountWithdrawServiceImpl implements AccountWithdrawService {
     }
 
     public void withdraw(double amount, AccountWithdraw account) {
-        String id = account.getClientID();
-        List<Account> list = accountDAO.getClientAccountsByType(id, AccountType.CHECKING);
-        for (Account i : list) {
-            if (i.equals(account)) {
-                if (account.getBalance() <= amount) {
-                    System.out.println("There is not enough money on the account!");
-                    return;
-                } else {
-                    account.setBalance(account.getBalance() - amount);
-                    return;
-                }
-            }
-        }
-        System.out.println("No such account found in the database!");
+        accountDAO.updateAccount(account, account.getBalance() - amount);
     }
 }
