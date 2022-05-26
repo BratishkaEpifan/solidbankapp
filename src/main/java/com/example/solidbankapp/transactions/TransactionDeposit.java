@@ -7,6 +7,7 @@ package com.example.solidbankapp.transactions;
 import com.example.solidbankapp.BankAccount.Account;
 import com.example.solidbankapp.BankAccount.AccountWithdraw;
 import com.example.solidbankapp.accountService.AccountDepositService;
+import com.example.solidbankapp.database.TransactionDAO;
 
 /**
  *
@@ -21,8 +22,8 @@ public class TransactionDeposit {
         this.transactionDAO = transactionDAO;
     }
 
-    public void execute (Account account, double amount) {
-        Transaction transaction = new Transaction(account, amount);
+    public void execute (Account account, double amount, int transactionID) {
+        Transaction transaction = new Transaction(account.getID(), amount, transactionID);
         transactionDAO.addTransaction(transaction);
         accountDepositService.deposit(amount, account);
         transactionDAO.addTransaction(transaction);

@@ -3,12 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.example.solidbankapp.accountService;
-import com.example.solidbankapp.AccountDAO;
 import com.example.solidbankapp.BankAccount.Account;
 import com.example.solidbankapp.BankAccount.CheckingAccount;
 import com.example.solidbankapp.BankAccount.FixedAccount;
 import com.example.solidbankapp.BankAccount.SavingAccount;
 import com.example.solidbankapp.BankAccount.AccountType;
+import com.example.solidbankapp.database.AccountDAO;
+
 /**
  *
  * @author john_

@@ -3,20 +3,25 @@ package com.example.solidbankapp.transactions;
 import com.example.solidbankapp.BankAccount.Account;
 
 public class Transaction {
-    private Account account;
+    private String accountID;
     private double amount;
 
-    public Transaction(Account account, double amount) {
-        this.account = account;
+    private int transactionID;
+
+
+
+    public Transaction(String accountID, double amount, int transactionID) {
+        this.accountID = accountID;
         this.amount = amount;
+        this.transactionID = transactionID;
     }
 
-    public Account getAccount() {
-        return account;
+    public String getAccountID() {
+        return accountID;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setAccount(String accountID) {
+        this.accountID = accountID;
     }
 
     public double getAmount() {
@@ -26,4 +31,5 @@ public class Transaction {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
 }

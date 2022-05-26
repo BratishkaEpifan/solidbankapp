@@ -4,7 +4,6 @@
  */
 package com.example.solidbankapp.accountService;
 import com.example.solidbankapp.BankAccount.Account;
-import com.example.solidbankapp.BankAccount.AccountWithdraw;
 /**
  *
  * @author john_

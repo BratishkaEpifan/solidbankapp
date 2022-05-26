@@ -5,14 +5,12 @@
 package com.example.solidbankapp;
 import java.util.Scanner;
 import java.util.List;
-import com.example.solidbankapp.BankAccount.Account;
-import com.example.solidbankapp.BankAccount.AccountType;
-import com.example.solidbankapp.accountService.AccountListingServiceImpl;
-import com.example.solidbankapp.createAccount.AccountBasicCLI;
-import com.example.solidbankapp.createAccount.CreateAccountOperationUI;
+
+import com.example.solidbankapp.client.AccountBasicCLI;
+import com.example.solidbankapp.client.MyCLI;
+import com.example.solidbankapp.client.TransactionDepositCLI;
+import com.example.solidbankapp.client.TransactionWithdrawCLI;
 import com.example.solidbankapp.springAnnotations.AppConfig;
-import com.example.solidbankapp.transactions.TransactionDepositCLI;
-import com.example.solidbankapp.transactions.TransactionWithdrawCLI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

@@ -1,15 +1,12 @@
 package com.example.solidbankapp.springAnnotations;
 
-import com.example.solidbankapp.BankAccount.Account;
-import com.example.solidbankapp.BankAccount.MemoryAccountDAO;
-import com.example.solidbankapp.MyCLI;
 import com.example.solidbankapp.accountService.AccountCreationServiceImpl;
 import com.example.solidbankapp.accountService.AccountDepositServiceImpl;
 import com.example.solidbankapp.accountService.AccountListingServiceImpl;
 import com.example.solidbankapp.accountService.AccountWithdrawServiceImpl;
-import com.example.solidbankapp.createAccount.AccountBasicCLI;
-import com.example.solidbankapp.createAccount.BankCore;
-import com.example.solidbankapp.createAccount.CreateAccountOperationUI;
+import com.example.solidbankapp.client.*;
+import com.example.solidbankapp.database.MemoryAccountDAO;
+import com.example.solidbankapp.database.MemoryTransactionDAO;
 import com.example.solidbankapp.transactions.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

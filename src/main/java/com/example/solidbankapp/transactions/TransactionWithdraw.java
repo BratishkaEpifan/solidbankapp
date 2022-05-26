@@ -7,6 +7,7 @@ package com.example.solidbankapp.transactions;
 import com.example.solidbankapp.BankAccount.Account;
 import com.example.solidbankapp.BankAccount.AccountWithdraw;
 import com.example.solidbankapp.accountService.AccountWithdrawService;
+import com.example.solidbankapp.database.TransactionDAO;
 
 /**
  *
@@ -21,9 +22,9 @@ public class TransactionWithdraw {
         this.transactionDAO = transactionDAO;
     }
 
-    public void execute (AccountWithdraw accountWithdraw, double amount) {
+    public void execute (AccountWithdraw accountWithdraw, double amount, int transactionID) {
         if (accountWithdraw.getBalance() >= amount) {
-            Transaction transaction = new Transaction(accountWithdraw, amount);
+            Transaction transaction = new Transaction(accountWithdraw.getID(), amount, transactionID);
             accountWithdrawService.withdraw(amount, accountWithdraw);
             transactionDAO.addTransaction(transaction);
             System.out.println("The transaction is successful!");
