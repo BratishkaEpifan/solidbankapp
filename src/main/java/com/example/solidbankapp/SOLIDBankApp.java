@@ -3,21 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package com.example.solidbankapp;
-import java.util.Scanner;
-import java.util.List;
 
 import com.example.solidbankapp.client.AccountBasicCLI;
 import com.example.solidbankapp.client.MyCLI;
 import com.example.solidbankapp.client.TransactionDepositCLI;
 import com.example.solidbankapp.client.TransactionWithdrawCLI;
-import com.example.solidbankapp.springAnnotations.AppConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -50,7 +46,7 @@ public class SOLIDBankApp implements CommandLineRunner {
         System.out.print(message);
 
         //ApplicationContext context = new ClassPathXmlApplicationContext("props.xml");
-        context = new AnnotationConfigApplicationContext(AppConfig.class);
+        //context = new AnnotationConfigApplicationContext(AppConfig.class);
 
         AccountBasicCLI accountBasicCLI =  context.getBean(AccountBasicCLI.class);
         TransactionDepositCLI transactionDepositCLI = context.getBean(TransactionDepositCLI.class);

@@ -5,11 +5,13 @@
 package com.example.solidbankapp.client;
 import com.example.solidbankapp.BankAccount.AccountType;
 import com.example.solidbankapp.transactions.WithdrawDepositOperationCLIUI;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author john_
  */
+@Component
 public interface CLIUI extends CreateAccountOperationUI, WithdrawDepositOperationCLIUI {
     public AccountType requestAccountType();    
 }

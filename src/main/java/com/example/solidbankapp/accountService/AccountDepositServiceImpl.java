@@ -11,20 +11,19 @@ package com.example.solidbankapp.accountService;
  */
 
 import com.example.solidbankapp.BankAccount.Account;
-import com.example.solidbankapp.database.AccountDAO;
+import com.example.solidbankapp.database.SQLAccountDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
-
+@Service
 public class AccountDepositServiceImpl implements AccountDepositService {
 
-    private AccountDAO accountDAO;
+    //private AccountDAO accountDAO;
 
-    public AccountDepositServiceImpl (AccountDAO accountDAO) {
-        this.accountDAO = accountDAO;
-    }
-
+    @Autowired
+    private SQLAccountDAO sqlAccountDAO;
 
     public void deposit(double amount, Account account) {
-        accountDAO.updateAccount(account, account.getBalance() + amount);
+        sqlAccountDAO.updateAccount(account.getID(), account.getBalance() + amount);
     }
 }

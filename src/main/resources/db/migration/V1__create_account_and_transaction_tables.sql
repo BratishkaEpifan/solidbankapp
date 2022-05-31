@@ -1,17 +1,17 @@
-CREATE TABLE Account
+CREATE TABLE Accounts
 (
-    accountType NVARCHAR(15)  NOT NULL,
-    id NVARCHAR(15) NOT NULL,
-    clientID NVARCHAR(15) NOT NULL,
-    balance FLOAT NOT NULL,
-    withdrawAllowed BIT NOT NULL,
-    CONSTRAINT PK_ID PRIMARY KEY (id)
+    account_id NVARCHAR(MAX)  NOT NULL,
+    account_type NVARCHAR(MAX)  NOT NULL,
+    client_id NVARCHAR(MAX)  NOT NULL,
+    balance FLOAT  NOT NULL,
+    withdraw_allowed BIT  NOT NULL,
+    CONSTRAINT PK_Account PRIMARY KEY  (account_id)
 );
 
-CREATE TABLE Transaction
+CREATE TABLE Transactions
 (
-    transactionID INT NOT NULL,
-    accountID NVARCHAR(15) NOT NULL,
+    transaction_id INT NOT NULL,
+    account_id NVARCHAR(15) NOT NULL,
     amount FLOAT NOT NULL,
-    CONSTRAINT PK_TransactionID PRIMARY KEY (transactionID)
+    CONSTRAINT PK_TransactionID PRIMARY KEY (transaction_id)
 );

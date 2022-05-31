@@ -8,11 +8,13 @@ import com.example.solidbankapp.BankAccount.Account;
 import com.example.solidbankapp.accountService.AccountListingService;
 import com.example.solidbankapp.transactions.TransactionDeposit;
 import com.example.solidbankapp.transactions.WithdrawDepositOperationCLIUI;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author john_
  */
+@Component
 public class TransactionDepositCLI {
     TransactionDeposit transactionDeposit;
     WithdrawDepositOperationCLIUI withdrawDepositOperationCLIUI;

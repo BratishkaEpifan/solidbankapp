@@ -3,12 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.example.solidbankapp.client;
+import java.util.Locale;
 import java.util.Scanner;
 import com.example.solidbankapp.BankAccount.AccountType;
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author john_
  */
+
+@Component
 public class MyCLI implements CLIUI {
     private Scanner scanner;
 
@@ -26,10 +31,10 @@ public class MyCLI implements CLIUI {
 
     public AccountType requestAccountType() throws IllegalArgumentException {
         String accountType = scanner.nextLine();
-        switch (accountType) {
-            case "CHECKING" -> { return AccountType.CHECKING; }
-            case "FIXED" -> { return  AccountType.FIXED; }
-            case "SAVING" -> { return AccountType.SAVING; }
+        switch (accountType.toUpperCase()) {
+            case "CHECKING" -> { return new AccountType("CHECKING"); }
+            case "FIXED" -> { return new AccountType("FIXED"); }
+            case "SAVING" -> { return new AccountType("SAVING"); }
             default -> {
                 //System.out.println("Invalid input");
                 return null;

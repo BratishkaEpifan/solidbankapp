@@ -4,13 +4,24 @@
  */
 package com.example.solidbankapp.BankAccount;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author john_
  */
-public enum AccountType {
-    CHECKING,
-    SAVING,
-    FIXED;
+@Component
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class AccountType {
+    private String type;
+
 }
 

@@ -4,17 +4,30 @@
  */
 package com.example.solidbankapp.BankAccount;
 
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.stereotype.Component;
+
+
+
 /**
  *
  * @author john_
  */
+@NoArgsConstructor
+@Table
+@Component
 public class Account {
-    private AccountType accountType;
-    private String id;
-    private String clientID;
-    private double balance;
-    private boolean withdrawAllowed;
-    
+
+    private @Column("account_type") AccountType accountType;
+    private @Id
+    @Column("account_id") String id;
+    private @Column("client_id") String clientID;
+    private @Column("balance") double balance;
+    private @Column("withdraw_allowed") boolean withdrawAllowed;
+
     public double getBalance() {
         return balance;
     }
@@ -25,7 +38,7 @@ public class Account {
         String accountNumber = String.format("%03d%06d", 1, n);
 
         return "Account{" +
-                "accountType=" + accountType +
+                "accountType=" + accountType.getType() +
                 ", id='" + accountNumber +
                 ", clientID='" + clientID +
                 ", balance=" + balance +

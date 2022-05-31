@@ -4,11 +4,13 @@
  */
 package com.example.solidbankapp.accountService;
 import com.example.solidbankapp.BankAccount.AccountType;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author john_
  */
+
 public interface AccountCreationService {
 
     public void create(AccountType accountType, long bankID, String clientID, long accountID);

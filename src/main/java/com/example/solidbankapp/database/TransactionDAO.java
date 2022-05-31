@@ -4,12 +4,15 @@
  */
 package com.example.solidbankapp.database;
 import com.example.solidbankapp.transactions.Transaction;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 /**
  *
  * @author john_
  */
+
+
 public interface TransactionDAO {
     public List<Transaction> getTransactions();
     public void addTransaction(Transaction transaction);

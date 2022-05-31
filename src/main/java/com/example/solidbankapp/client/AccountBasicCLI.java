@@ -6,6 +6,7 @@ package com.example.solidbankapp.client;
 import com.example.solidbankapp.BankAccount.Account;
 import com.example.solidbankapp.accountService.AccountListingService;
 import com.example.solidbankapp.BankAccount.AccountType;
+import org.springframework.stereotype.Component;
 
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
  *
  * @author john_
  */
+
+@Component
 public class AccountBasicCLI {
     
     private CreateAccountOperationUI createAccountOperationUI;

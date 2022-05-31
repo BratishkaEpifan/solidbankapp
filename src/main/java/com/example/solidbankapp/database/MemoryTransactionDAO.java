@@ -4,6 +4,7 @@
  */
 package com.example.solidbankapp.database;
 import com.example.solidbankapp.transactions.Transaction;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  *
  * @author john_
  */
+
 public class MemoryTransactionDAO implements TransactionDAO {
 
     private List<Transaction> transactions;

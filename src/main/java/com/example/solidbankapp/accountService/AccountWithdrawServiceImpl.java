@@ -5,22 +5,25 @@
 package com.example.solidbankapp.accountService;
 
 import com.example.solidbankapp.BankAccount.AccountWithdraw;
-import com.example.solidbankapp.database.AccountDAO;
-
-import java.util.List;
+import com.example.solidbankapp.database.SQLAccountDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author john_
  */
-public class AccountWithdrawServiceImpl implements AccountWithdrawService {
-    private AccountDAO accountDAO;
 
-    public AccountWithdrawServiceImpl(AccountDAO accountDAO) {
-        this.accountDAO = accountDAO;
-    }
+@Service
+public class AccountWithdrawServiceImpl implements AccountWithdrawService {
+    //private AccountDAO accountDAO;
+
+
+    @Autowired
+    private SQLAccountDAO sqlAccountDAO;
+
 
     public void withdraw(double amount, AccountWithdraw account) {
-        accountDAO.updateAccount(account, account.getBalance() - amount);
+        sqlAccountDAO.updateAccount(account.getID(), account.getBalance() - amount);
     }
 }

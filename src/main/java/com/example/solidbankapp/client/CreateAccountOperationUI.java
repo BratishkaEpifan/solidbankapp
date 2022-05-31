@@ -4,10 +4,13 @@
  */
 package com.example.solidbankapp.client;
 import com.example.solidbankapp.BankAccount.AccountType;
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author john_
  */
+@Component
 public interface CreateAccountOperationUI {
     public AccountType requestAccountType();
 }

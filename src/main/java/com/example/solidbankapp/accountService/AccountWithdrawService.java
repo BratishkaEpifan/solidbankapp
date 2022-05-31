@@ -4,11 +4,15 @@
  */
 package com.example.solidbankapp.accountService;
 import com.example.solidbankapp.BankAccount.AccountWithdraw;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author john_
  */
+
+@Service
 public interface AccountWithdrawService {
-    public void withdraw(double amount, AccountWithdraw account);
+     void withdraw(double amount, AccountWithdraw account);
 }

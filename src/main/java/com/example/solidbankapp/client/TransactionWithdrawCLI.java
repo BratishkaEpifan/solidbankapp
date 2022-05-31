@@ -8,6 +8,7 @@ import com.example.solidbankapp.BankAccount.AccountWithdraw;
 import com.example.solidbankapp.accountService.AccountListingService;
 import com.example.solidbankapp.transactions.TransactionWithdraw;
 import com.example.solidbankapp.transactions.WithdrawDepositOperationCLIUI;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
  *
  * @author john_
  */
+@Component
 public class TransactionWithdrawCLI {
     private TransactionWithdraw transactionWithdraw;
     private WithdrawDepositOperationCLIUI withdrawDepositOperationCLIUI;

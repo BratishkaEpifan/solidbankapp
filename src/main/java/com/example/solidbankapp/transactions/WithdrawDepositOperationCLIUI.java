@@ -4,10 +4,13 @@
  */
 package com.example.solidbankapp.transactions;
 
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author john_
  */
+@Component
 public interface WithdrawDepositOperationCLIUI {
     public double requestClientAmount();
     public String requestClientAccountNumber();

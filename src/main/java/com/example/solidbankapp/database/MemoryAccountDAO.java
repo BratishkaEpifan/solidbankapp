@@ -7,6 +7,7 @@ package com.example.solidbankapp.database;
 import com.example.solidbankapp.BankAccount.Account;
 import com.example.solidbankapp.BankAccount.AccountType;
 import com.example.solidbankapp.BankAccount.AccountWithdraw;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
  *
  * @author john_
  */
+
 public class MemoryAccountDAO implements AccountDAO {
     private List<Account> accountList;
 

@@ -6,11 +6,13 @@ package com.example.solidbankapp.client;
 import com.example.solidbankapp.accountService.AccountCreationService;
 import com.example.solidbankapp.BankAccount.AccountType;
 import com.example.solidbankapp.accountService.AccountListingServiceImpl;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author john_
  */
+@Component
 public class BankCore {
     private static long id = 1;
     private long lastAccountNumber = 1;

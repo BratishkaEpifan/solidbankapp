@@ -7,11 +7,13 @@ import java.util.List;
 import com.example.solidbankapp.BankAccount.Account;
 import com.example.solidbankapp.BankAccount.AccountType;
 import com.example.solidbankapp.BankAccount.AccountWithdraw;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author john_
  */
+
 public interface AccountDAO {
     
     public List<Account> getClientAccounts(String clientID);
