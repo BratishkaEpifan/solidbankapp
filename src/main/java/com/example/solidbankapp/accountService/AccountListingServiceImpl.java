@@ -7,6 +7,7 @@ import com.example.solidbankapp.BankAccount.Account;
 import com.example.solidbankapp.BankAccount.AccountWithdraw;
 import com.example.solidbankapp.BankAccount.AccountType;
 import com.example.solidbankapp.database.SQLAccountDAO;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,10 @@ import java.util.List;
  * @author john_
  */
 @Service
+@AllArgsConstructor
 public class AccountListingServiceImpl implements AccountListingService {
 
-    @Autowired
+
     private SQLAccountDAO sqlAccountDAO;
 
 

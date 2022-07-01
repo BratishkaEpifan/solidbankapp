@@ -4,10 +4,7 @@
  */
 package com.example.solidbankapp;
 
-import com.example.solidbankapp.client.AccountBasicCLI;
-import com.example.solidbankapp.client.MyCLI;
-import com.example.solidbankapp.client.TransactionDepositCLI;
-import com.example.solidbankapp.client.TransactionWithdrawCLI;
+import com.example.solidbankapp.client.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -52,6 +49,7 @@ public class SOLIDBankApp implements CommandLineRunner {
         TransactionDepositCLI transactionDepositCLI = context.getBean(TransactionDepositCLI.class);
         TransactionWithdrawCLI transactionWithdrawCLI = context.getBean(TransactionWithdrawCLI.class);
         MyCLI myCLI = (MyCLI) context.getBean(MyCLI.class);
+        TransactionTransferCLI transactionTransferCLI = context.getBean(TransactionTransferCLI.class);
 
         String clientID = "1";
 
@@ -63,7 +61,7 @@ public class SOLIDBankApp implements CommandLineRunner {
                 case "2" -> accountBasicCLI.createAccountRequest(clientID);
                 case "3" -> transactionDepositCLI.depositMoney(clientID);
                 case "4" -> transactionWithdrawCLI.withdrawMoney(clientID);
-                case "5" -> System.out.println("This command is not available yet");
+                case "5" -> transactionTransferCLI.transferMoney(clientID);
                 case "6" -> System.out.println(message);
                 case "7" -> {
                     System.out.println("Application closed");

@@ -9,7 +9,9 @@ import com.example.solidbankapp.BankAccount.AccountWithdraw;
 import com.example.solidbankapp.accountService.AccountWithdrawService;
 import com.example.solidbankapp.database.SqlTransactionDAO;
 import com.example.solidbankapp.database.TransactionDAO;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,7 +19,9 @@ import org.springframework.stereotype.Component;
  * @author john_
  */
 @Component
+@AllArgsConstructor
 public class TransactionWithdraw {
+
     private AccountWithdrawService accountWithdrawService;
     //private TransactionDAO transactionDAO;
     private SqlTransactionDAO sqlTransactionDAO;
@@ -25,7 +29,7 @@ public class TransactionWithdraw {
 
     public void execute (AccountWithdraw accountWithdraw, double amount, int transactionID) {
         if (accountWithdraw.getBalance() >= amount) {
-            Transaction transaction = new Transaction(accountWithdraw.getID(), amount, transactionID);
+            Transaction transaction = new Transaction(accountWithdraw.getId(), amount, transactionID);
             accountWithdrawService.withdraw(amount, accountWithdraw);
             sqlTransactionDAO.addTransaction(transaction.getAccountID(), transaction.getAmount(), transaction.getTransactionID());
             System.out.println("The transaction is successful!");
@@ -33,6 +37,8 @@ public class TransactionWithdraw {
             System.out.println("There is not enough money on the account!");
         }
     }
+
+
 
 //    public TransactionWithdraw(AccountWithdrawService accountWithdrawService, TransactionDAO transactionDAO) {
 //        this.accountWithdrawService = accountWithdrawService;

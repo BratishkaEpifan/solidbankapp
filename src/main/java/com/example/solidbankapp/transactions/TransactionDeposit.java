@@ -27,8 +27,9 @@ public class TransactionDeposit {
     }
 
     public void execute (Account account, double amount, int transactionID) {
+        Transaction transaction = new Transaction(account.getId(), amount, transactionID);
         accountDepositService.deposit(amount, account);
-        sqlTransactionDAO.addTransaction(account.getID(), amount, transactionID);
+        sqlTransactionDAO.addTransaction(account.getId(), amount, transaction.getTransactionID());
         System.out.println("The transaction is successful!");
     }
 

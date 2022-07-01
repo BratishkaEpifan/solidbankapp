@@ -22,6 +22,5 @@ import org.springframework.stereotype.Component;
 @Setter
 public class AccountType {
     private String type;
-
 }
 

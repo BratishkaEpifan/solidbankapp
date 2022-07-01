@@ -12,18 +12,20 @@ package com.example.solidbankapp.accountService;
 
 import com.example.solidbankapp.BankAccount.Account;
 import com.example.solidbankapp.database.SQLAccountDAO;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class AccountDepositServiceImpl implements AccountDepositService {
 
     //private AccountDAO accountDAO;
 
-    @Autowired
+
     private SQLAccountDAO sqlAccountDAO;
 
     public void deposit(double amount, Account account) {
-        sqlAccountDAO.updateAccount(account.getID(), account.getBalance() + amount);
+        sqlAccountDAO.updateAccount(account.getId(), account.getBalance() + amount);
     }
 }

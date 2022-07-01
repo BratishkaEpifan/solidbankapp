@@ -13,6 +13,9 @@ public interface SqlTransactionDAO extends CrudRepository<Transaction, Integer> 
     @Query("SELECT * FROM Transactions")
     public List<Transaction> getTransactions();
 
+    @Query("SELECT * FROM Transactions WHERE account_id= :id")
+    public List<Transaction> getTransactionsByID(String id);
+
     @Modifying
     @Query("INSERT INTO Transactions (account_id, amount, transaction_id) VALUES (:accountID, :amount, :transactionID)")
     public void addTransaction(String accountID, double amount, int transactionID);

@@ -62,7 +62,7 @@ public class MemoryAccountDAO implements AccountDAO {
     public AccountWithdraw getClientWithdrawAccount(String clientID, String accountID) {
         AccountWithdraw result = null;
         for (Account i: accountList) {
-            if (i.getClientID().equals(clientID) && i.getID().equals(accountID)) {
+            if (i.getClientID().equals(clientID) && i.getId().equals(accountID)) {
                 if (i.isWithdrawAllowed() == true) {
                     result = (AccountWithdraw)i;
                     break;
@@ -79,7 +79,7 @@ public class MemoryAccountDAO implements AccountDAO {
     public Account getClientAccount(String clientID, String accountID) {
         Account result = null;
         for (Account i: accountList) {
-            if (i.getClientID().equals(clientID) && i.getID().equals(accountID)) {
+            if (i.getClientID().equals(clientID) && i.getId().equals(accountID)) {
                 result = i;
                 break;
             }

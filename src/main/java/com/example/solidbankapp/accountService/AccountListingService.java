@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @author john_
  */
 
-@Service
+
 public interface AccountListingService {
     public Account getClientAccount(String clientID, String accountID);
     public AccountWithdraw getClientWithdrawAccount(String clientID, String accountID);
