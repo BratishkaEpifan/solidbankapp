@@ -20,11 +20,9 @@ public class TransactionTransferCLI {
         System.out.println("Enter account ID that you want to take money from");
         String s = withdrawDepositOperationCLIUI.requestClientAccountNumber();
 
-        long l=Long.parseLong(s);
-        l = l - 1000000;
-        String accountNumberFrom = String.valueOf(l);
 
-        if (accountNumberFrom.isEmpty() || accountListingService.getClientWithdrawAccount(clientID, accountNumberFrom)
+
+        if (s.isEmpty() || accountListingService.getClientWithdrawAccount(clientID, s)
                 == null) {
             System.out.println("No account was found");
             return;
@@ -35,18 +33,16 @@ public class TransactionTransferCLI {
 
         String ss = withdrawDepositOperationCLIUI.requestClientAccountNumber();
 
-        long t=Long.parseLong(ss);
-        t = t - 1000000;
-        String accountNumberTo = String.valueOf(t);
 
-        if (accountNumberTo.isEmpty() || accountListingService.getClientAccounts(accountNumberTo) == null) {
+
+        if (ss.isEmpty() || accountListingService.getClientAccounts(ss) == null) {
             System.out.println("No account was found");
             return;
         }
 
-        AccountWithdraw accountWithdraw = accountListingService.getClientWithdrawAccount(clientID, accountNumberFrom);
+        AccountWithdraw accountWithdraw = accountListingService.getClientWithdrawAccount(clientID, s);
 
-        Account accountDeposit = accountListingService.getClientAccount(clientID, accountNumberTo);
+        Account accountDeposit = accountListingService.getClientAccount(clientID, ss);
 
         System.out.println("Enter amount of money");
         double amount = withdrawDepositOperationCLIUI.requestClientAmount();

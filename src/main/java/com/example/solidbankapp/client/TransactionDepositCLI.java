@@ -30,11 +30,9 @@ public class TransactionDepositCLI {
     }
     public void depositMoney(String clientID) {
         System.out.println("Please enter your account ID");
-        String temp = withdrawDepositOperationCLIUI.requestClientAccountNumber();
-        if (temp != null) {
-            long l=Long.parseLong(temp);
-            l = l - 1000000;
-            String accountID = String.valueOf(l);
+        String accountID = withdrawDepositOperationCLIUI.requestClientAccountNumber();
+        if (accountID != null) {
+
             Account account = accountListing.getClientAccount(clientID, accountID);
             if (account != null) {
                 System.out.println("Please enter the amount");

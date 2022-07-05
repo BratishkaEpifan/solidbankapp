@@ -42,7 +42,10 @@ public class AccountCreationServiceImpl implements AccountCreationService {
             //accountDAO.createNewAccount(newAccount);
             if (newAccount != null) {
 
-                sqlAccountDAO.createNewAccount(newAccount.getId(), newAccount.getAccountType(), newAccount.getClientID(),
+                int n = Integer.parseInt(newAccount.getId());
+                String accountNumber = String.format("%03d%06d", 1, n);
+
+                sqlAccountDAO.createNewAccount(accountNumber, newAccount.getAccountType(), newAccount.getClientID(),
                         newAccount.getBalance(), newAccount.isWithdrawAllowed());
                 System.out.println("Account successfully created");
             }

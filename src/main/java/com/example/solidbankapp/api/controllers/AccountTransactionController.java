@@ -8,6 +8,7 @@ import com.example.solidbankapp.accountService.AccountWithdrawService;
 import com.example.solidbankapp.client.BankCore;
 import com.example.solidbankapp.database.SQLAccountDAO;
 import com.example.solidbankapp.database.SqlTransactionDAO;
+import com.example.solidbankapp.security.JwtGenerator;
 import com.example.solidbankapp.transactions.Transaction;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -31,6 +34,8 @@ public class AccountTransactionController {
     private final AccountWithdrawService accountWithdrawService;
     private final SQLAccountDAO sqlAccountDAO;
     private final SqlTransactionDAO sqlTransactionDAO;
+
+    private final JwtGenerator jwtGenerator;
 
     private int depositID = 1;
 
@@ -52,7 +57,17 @@ public class AccountTransactionController {
     }
 
     @PostMapping("/create-account")
-    public ResponseEntity<String> createAccount(@RequestParam String accountType, @RequestParam String clientID) {
+    public ResponseEntity<String> createAccount(@RequestParam String accountType, HttpServletRequest httpServletRequest) {
+        Cookie[] cookies = httpServletRequest.getCookies();
+        String token = "";
+        String clientID = "";
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                token = cookie.getValue();
+                clientID = jwtGenerator.getLoginFromToken(token);
+                break;
+            }
+        }
         AccountType type;
         switch (accountType.toUpperCase()) {
             case "CHECKING" -> { type = new AccountType("CHECKING"); }
@@ -70,21 +85,37 @@ public class AccountTransactionController {
         }
     }
     @GetMapping("/{accountId}")
-    public ResponseEntity<?> getAccountById(@PathVariable String accountId, @RequestParam String clientID) {
-
-        long l=Long.parseLong(accountId);
-        l = l - 1000000;
-        String accountID = String.valueOf(l);
-
-        if (sqlAccountDAO.getClientAccount(clientID, accountID) != null) {
-            return new ResponseEntity<>(sqlAccountDAO.getClientAccount(clientID, accountID), HttpStatus.OK);
+    public ResponseEntity<?> getAccountById(@PathVariable String accountId, HttpServletRequest httpServletRequest) {
+        Cookie[] cookies = httpServletRequest.getCookies();
+        String token = "";
+        String clientID = "";
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                token = cookie.getValue();
+                clientID = jwtGenerator.getLoginFromToken(token);
+                break;
+            }
+        }
+        if (sqlAccountDAO.getClientAccount(clientID, accountId) != null) {
+            return new ResponseEntity<>(sqlAccountDAO.getClientAccount(clientID, accountId), HttpStatus.OK);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Such account is not present!");
         }
     }
 
     @DeleteMapping("/{accountId}")
-    public ResponseEntity<String> deleteAccount(@PathVariable String accountId, @RequestParam String clientID) {
+    public ResponseEntity<String> deleteAccount(@PathVariable String accountId, HttpServletRequest httpServletRequest) {
+        Cookie[] cookies = httpServletRequest.getCookies();
+        String token = "";
+        String clientID = "";
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                token = cookie.getValue();
+                clientID = jwtGenerator.getLoginFromToken(token);
+                break;
+            }
+        }
+
         if (sqlAccountDAO.findById(accountId).isPresent()) {
             sqlAccountDAO.delete(sqlAccountDAO.getClientAccount(clientID, accountId));
             return new ResponseEntity<>("Account was deleted!", HttpStatus.OK);
@@ -94,20 +125,28 @@ public class AccountTransactionController {
     }
 
     @PostMapping("/{accountId}/deposit")
-    public ResponseEntity<String> deposit(@PathVariable String accountId, @RequestParam String clientID , @RequestParam Double amount) {
+    public ResponseEntity<String> deposit(@PathVariable String accountId, HttpServletRequest httpServletRequest , @RequestParam Double amount) {
         if (amount < 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please write down valid amount of money!");
         }
 
-        long l=Long.parseLong(accountId);
-        l = l - 1000000;
-        String accountID = String.valueOf(l);
 
-        if (sqlAccountDAO.getClientAccount(clientID, accountID) != null) {
-            sqlTransactionDAO.addTransaction(accountID, amount, depositID);
+        Cookie[] cookies = httpServletRequest.getCookies();
+        String token = "";
+        String clientID = "";
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                token = cookie.getValue();
+                clientID = jwtGenerator.getLoginFromToken(token);
+                break;
+            }
+        }
+
+        if (sqlAccountDAO.getClientAccount(clientID, accountId) != null) {
+            sqlTransactionDAO.addTransaction(accountId, amount, depositID);
             depositID++;
 
-            accountDepositService.deposit(amount, sqlAccountDAO.getClientAccount(clientID, accountID));
+            accountDepositService.deposit(amount, sqlAccountDAO.getClientAccount(clientID, accountId));
             return ResponseEntity.status(HttpStatus.OK).body("The transaction is successful!");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There is no such account!");
@@ -116,23 +155,33 @@ public class AccountTransactionController {
 
 
     @PostMapping("/{accountId}/withdraw")
-    public ResponseEntity<String> withdraw(@PathVariable String accountId, @RequestParam double amount, @RequestParam String clientID) {
+    public ResponseEntity<String> withdraw(@PathVariable String accountId, @RequestParam double amount, HttpServletRequest httpServletRequest) {
         if (amount < 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please write down valid amount of money!");
         }
+        Cookie[] cookies = httpServletRequest.getCookies();
+        String token = "";
+        String clientID = "";
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                token = cookie.getValue();
+                clientID = jwtGenerator.getLoginFromToken(token);
+                break;
+            }
+        }
 
-        long l=Long.parseLong(accountId);
-        l = l - 1000000;
-        String accountID = String.valueOf(l);
 
-        if (sqlAccountDAO.getClientAccount(clientID, accountID) != null) {
-            if (sqlAccountDAO.getClientAccount(clientID, accountID).getBalance() >= amount) {
+        if (sqlAccountDAO.getClientAccount(clientID, accountId) != null) {
+            if (sqlAccountDAO.getClientAccount(clientID, accountId).getBalance() >= amount &&
+                    sqlAccountDAO.getClientAccount(clientID, accountId).isWithdrawAllowed() != false) {
 
                 sqlTransactionDAO.addTransaction(clientID, amount, withdrawID);
                 withdrawID --;
 
-                accountWithdrawService.withdraw(amount, sqlAccountDAO.getClientWithdrawAccount(clientID, accountID));
+                accountWithdrawService.withdraw(amount, sqlAccountDAO.getClientWithdrawAccount(clientID, accountId));
                 return ResponseEntity.status(HttpStatus.OK).body("The transaction is successful!");
+            } else if (sqlAccountDAO.getClientAccount(clientID, accountId).isWithdrawAllowed() == false) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The account is fixed!");
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("There is not enough money on your account!");
             }
@@ -145,12 +194,9 @@ public class AccountTransactionController {
     @GetMapping("/{accountId}/transactions")
     public ResponseEntity<?> getTransactionsByID(@PathVariable String accountId) {
 
-        long l=Long.parseLong(accountId);
-        l = l - 1000000;
-        String accountID = String.valueOf(l);
 
-        if (sqlTransactionDAO.getTransactionsByID(accountID).isEmpty() == false) {
-            return new ResponseEntity<>(sqlTransactionDAO.getTransactionsByID(accountID), HttpStatus.OK);
+        if (sqlTransactionDAO.getTransactionsByID(accountId).isEmpty() == false) {
+            return new ResponseEntity<>(sqlTransactionDAO.getTransactionsByID(accountId), HttpStatus.OK);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No transactions found");
         }
