@@ -52,22 +52,16 @@ public class AccountTransactionController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Account>> getAccounts(@RequestParam String clientID) {
+    public ResponseEntity<List<Account>> getAccounts(HttpServletRequest httpServletRequest) {
+        String clientID = getClientFromServletRequest(httpServletRequest);
+
         return new ResponseEntity<>(sqlAccountDAO.getClientAccounts(String.valueOf(clientID)), HttpStatus.OK);
     }
 
     @PostMapping("/create-account")
     public ResponseEntity<String> createAccount(@RequestParam String accountType, HttpServletRequest httpServletRequest) {
-        Cookie[] cookies = httpServletRequest.getCookies();
-        String token = "";
-        String clientID = "";
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                token = cookie.getValue();
-                clientID = jwtGenerator.getLoginFromToken(token);
-                break;
-            }
-        }
+        String clientID = getClientFromServletRequest(httpServletRequest);
+
         AccountType type;
         switch (accountType.toUpperCase()) {
             case "CHECKING" -> { type = new AccountType("CHECKING"); }
@@ -86,16 +80,8 @@ public class AccountTransactionController {
     }
     @GetMapping("/{accountId}")
     public ResponseEntity<?> getAccountById(@PathVariable String accountId, HttpServletRequest httpServletRequest) {
-        Cookie[] cookies = httpServletRequest.getCookies();
-        String token = "";
-        String clientID = "";
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                token = cookie.getValue();
-                clientID = jwtGenerator.getLoginFromToken(token);
-                break;
-            }
-        }
+        String clientID = getClientFromServletRequest(httpServletRequest);
+
         if (sqlAccountDAO.getClientAccount(clientID, accountId) != null) {
             return new ResponseEntity<>(sqlAccountDAO.getClientAccount(clientID, accountId), HttpStatus.OK);
         } else {
@@ -105,16 +91,7 @@ public class AccountTransactionController {
 
     @DeleteMapping("/{accountId}")
     public ResponseEntity<String> deleteAccount(@PathVariable String accountId, HttpServletRequest httpServletRequest) {
-        Cookie[] cookies = httpServletRequest.getCookies();
-        String token = "";
-        String clientID = "";
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                token = cookie.getValue();
-                clientID = jwtGenerator.getLoginFromToken(token);
-                break;
-            }
-        }
+        String clientID = getClientFromServletRequest(httpServletRequest);
 
         if (sqlAccountDAO.findById(accountId).isPresent()) {
             sqlAccountDAO.delete(sqlAccountDAO.getClientAccount(clientID, accountId));
@@ -131,16 +108,7 @@ public class AccountTransactionController {
         }
 
 
-        Cookie[] cookies = httpServletRequest.getCookies();
-        String token = "";
-        String clientID = "";
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                token = cookie.getValue();
-                clientID = jwtGenerator.getLoginFromToken(token);
-                break;
-            }
-        }
+        String clientID = getClientFromServletRequest(httpServletRequest);
 
         if (sqlAccountDAO.getClientAccount(clientID, accountId) != null) {
             sqlTransactionDAO.addTransaction(accountId, amount, depositID);
@@ -159,17 +127,7 @@ public class AccountTransactionController {
         if (amount < 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please write down valid amount of money!");
         }
-        Cookie[] cookies = httpServletRequest.getCookies();
-        String token = "";
-        String clientID = "";
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                token = cookie.getValue();
-                clientID = jwtGenerator.getLoginFromToken(token);
-                break;
-            }
-        }
-
+        String clientID = getClientFromServletRequest(httpServletRequest);
 
         if (sqlAccountDAO.getClientAccount(clientID, accountId) != null) {
             if (sqlAccountDAO.getClientAccount(clientID, accountId).getBalance() >= amount &&
@@ -201,5 +159,20 @@ public class AccountTransactionController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No transactions found");
         }
     }
+
+    private String getClientFromServletRequest(HttpServletRequest httpServletRequest) {
+        Cookie[] cookies = httpServletRequest.getCookies();
+        String token = "";
+        String clientID = "";
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                token = cookie.getValue();
+                clientID = jwtGenerator.getLoginFromToken(token);
+                break;
+            }
+        }
+        return clientID;
+    }
+
 
 }
